@@ -11,4 +11,5 @@ struct mystr {
 int main() {
     mystr s = { "abc" };
     s.printn();
+    // mystr::printn();
 }
