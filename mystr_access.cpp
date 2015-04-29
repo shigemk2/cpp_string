@@ -84,5 +84,7 @@ public:
 };
 
 int main() {
-    mystr s;
+    mystr s = "abc";
+    // printf("[%d]", s.len);  // エラー
+    s.printn();             // OK
 }
