@@ -7,6 +7,7 @@ class mystr {
     size_t len;
     size_t buflen;
 
+public:
     mystr() {
         str = NULL;
         *this = "";
