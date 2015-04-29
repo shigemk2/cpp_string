@@ -8,6 +8,8 @@ class mystr {
     size_t buflen;
 
 public:
+    size_t length() const { return len; }
+
     mystr() {
         str = NULL;
         *this = "";
@@ -85,6 +87,6 @@ public:
 
 int main() {
     mystr s = "abc";
-    // printf("[%d]", s.len);  // エラー
-    s.printn();             // OK
+    printf("[%d]\n", s.length());
+    s.printn();
 }
