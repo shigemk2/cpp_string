@@ -1,10 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct mystr {
-    const char *str;
+    char *str;
 
     mystr(const char *s) {
-        str = s;
+        str = (char *)malloc(strlen(s) + 1);
+        strcpy(str, s);
     }
 
     void printn() {
