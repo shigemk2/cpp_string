@@ -13,7 +13,8 @@ struct mystr {
 };
 
 int main() {
-    mystr s = "abc";
-    printf("%s\n", s);
+    char buf[] = "abc";
+    mystr s = buf;
+    buf[0] = 'A';
     s.printn();
 }
