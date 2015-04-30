@@ -14,5 +14,6 @@ struct mystr {
 
 int main() {
     mystr s = "abc";
+    printf("%s\n", s);
     s.printn();
 }
