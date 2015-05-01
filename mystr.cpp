@@ -10,6 +10,11 @@ struct mystr {
         strcpy(str, s);
     }
 
+    ~mystr() {
+        printf("free ~mystr: %s\n", str);
+        free(str);
+    }
+
     void printn() {
         printf("%s\n", str);
     }
@@ -20,4 +25,5 @@ int main() {
     mystr s = buf;
     buf[0] = 'A';
     s.printn();
+    printf("last of main()\n");
 }
