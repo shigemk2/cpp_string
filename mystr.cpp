@@ -18,12 +18,19 @@ struct mystr {
     void printn() {
         printf("%s\n", str);
     }
+
+    void operator+=(const char *s) {
+        char *old = str;
+        int len = strlen(str) + strlen(s);
+        str = new char[len + 1];
+        strcpy(str, old);
+        strcat(str, s);
+        delete[] old;
+    }
 };
 
 int main() {
-    char buf[] = "abc";
-    mystr s = buf;
-    buf[0] = 'A';
-    s.printn();
-    printf("last of main()\n");
+    mystr s1 = "abc";
+    s1 += "def";
+    s1.printn();
 }
