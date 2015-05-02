@@ -6,13 +6,13 @@ struct mystr {
     char *str;
 
     mystr(const char *s) {
-        str = (char *)malloc(strlen(s) + 1);
+        str = new char[strlen(s) + 1];
         strcpy(str, s);
     }
 
     ~mystr() {
         printf("free ~mystr: %s\n", str);
-        free(str);
+        delete[] str;
     }
 
     void printn() {
