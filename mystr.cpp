@@ -52,7 +52,7 @@ void testr() {
 }
 
 void test(const mystr &s) {
-    printf("%s\n", s.str);
+    s.printn();  // エラー
 }
 
 int main() {
