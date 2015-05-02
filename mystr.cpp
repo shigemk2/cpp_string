@@ -51,7 +51,11 @@ void testr() {
     printf("a = %s, b = %s\n", a.str, b.str);
 }
 
+void test(const mystr &s) {
+    printf("%s\n", s.str);
+}
+
 int main() {
-    testp();
-    testr();
+    mystr s = "abc";
+    test(s);
 }
