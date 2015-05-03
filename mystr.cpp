@@ -32,6 +32,16 @@ struct mystr {
         strcat(str, s);
         delete[] old;
     }
+
+    mystr &operator+=(const char *s) {
+        char *old = str;
+        int len = strlen(str) + strlen(s);
+        str = new char[len + 1];
+        strcpy(str, old);
+        strcat(str, s);
+        delete[] old;
+        return *this;
+    }
 };
 
 void testp() {
