@@ -10,6 +10,11 @@ struct mystr {
         strcpy(str, s);
     }
 
+    mystr(const mystr &s) {
+        str = new char[strlen(s.str) + 1];
+        strcpy(str, s.str);
+    }
+
     ~mystr() {
         printf("free ~mystr: %s\n", str);
         delete[] str;
@@ -56,6 +61,10 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr s = "abc";
-    test(s);
+    mystr s1 = "abc";
+    mystr s2 = s1;
+    s1 += "def";
+    s2 += "ghi";
+    printf("s1: %s\n", s1.str);
+    printf("s2: %s\n", s2.str);
 }
