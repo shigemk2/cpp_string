@@ -15,7 +15,7 @@ struct mystr {
         delete[] str;
     }
 
-    void printn() {
+    void printn() const {
         printf("%s\n", str);
     }
 
