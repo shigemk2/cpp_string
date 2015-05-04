@@ -81,10 +81,8 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr s1 = "abc";
-    mystr s2 = s1;
-    s1 += "def";
-    s2 += "ghi";
-    printf("s1[%d]=%s\n", s1.len, s1.str);
-    printf("s2[%d]=%s\n", s2.len, s2.str);
+    mystr s = "abc";
+    // mystrにmystrを追加するにはstrを取り出します
+    s += s.str;
+    printf("s[%d]: %s\n", s.len, s.str);
 }
