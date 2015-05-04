@@ -4,6 +4,8 @@
 
 struct mystr {
     char *str;
+    // メンバ変数で長さを保持すればstrlen()の使用回数を減らすことができます。
+    size_t len;
 
     // 初期値を与えないで引数を宣言
     mystr() {
@@ -34,7 +36,7 @@ struct mystr {
     // +=演算子をオーバーロード
     mystr &operator+=(const char *s) {
         char *old = str;
-        int len = strlen(str) + strlen(s);
+        len += strlen(s);
         str = new char[len + 1];
         strcpy(str, old);
         strcat(str, s);
@@ -45,7 +47,8 @@ struct mystr {
     // =演算子をオーバーロード
     mystr &operator=(const char *s) {
         delete[] str;
-        str = new char[strlen(s) + 1];
+        len = strlen(s);
+        str = new char[len + 1];
         strcpy(str, s);
         return *this;
     }
@@ -78,7 +81,10 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr s;
-    s = "abc";
-    s.printn();
+    mystr s1 = "abc";
+    mystr s2 = s1;
+    s1 += "def";
+    s2 += "ghi";
+    printf("s1[%d]=%s\n", s1.len, s1.str);
+    printf("s2[%d]=%s\n", s2.len, s2.str);
 }
