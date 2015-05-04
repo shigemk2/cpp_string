@@ -10,13 +10,19 @@ struct mystr {
         strcpy(str, s);
     }
 
+    // 代入の実現 コピーコンストラクタ
     mystr(const mystr &s) {
         str = new char[strlen(s.str) + 1];
         strcpy(str, s.str);
     }
 
+    // 初期値を与えないで引数を宣言
+    mystr() {
+        str = new char[1];
+        str[0] = 0;
+    }
+
     ~mystr() {
-        printf("free ~mystr: %s\n", str);
         delete[] str;
     }
 
@@ -24,6 +30,7 @@ struct mystr {
         printf("%s\n", str);
     }
 
+    // +=演算子をオーバーロード
     mystr &operator+=(const char *s) {
         char *old = str;
         int len = strlen(str) + strlen(s);
@@ -31,6 +38,14 @@ struct mystr {
         strcpy(str, old);
         strcat(str, s);
         delete[] old;
+        return *this;
+    }
+
+    // =演算子をオーバーロード
+    mystr &operator=(const char *s) {
+        delete[] str;
+        str = new char[strlen(s) + 1];
+        strcpy(str, s);
         return *this;
     }
 };
@@ -62,7 +77,7 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr s = "abc";
-    (s += "def") += "ghi";
-    printf("s = %s\n", s.str);
+    mystr s;
+    s = "abc";
+    s.printn();
 }
