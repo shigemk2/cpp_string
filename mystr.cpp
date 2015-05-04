@@ -33,34 +33,37 @@ struct mystr {
         printf("%s\n", str);
     }
 
+    void set(const char *s, size_t newlen) {
+        char *old = str;
+        len = newlen;
+        str = new char[len + 1];
+        strcpy(str, s);
+        delete[] old;
+    }
+
     // +=演算子をオーバーロード
     mystr &operator+=(const char *s) {
-        char *old = str;
-        len += strlen(s);
-        str = new char[len + 1];
-        strcpy(str, old);
+        set(str, len + strlen(s));
         strcat(str, s);
-        delete[] old;
         return *this;
     }
 
     // 関数のオーバーロード
     mystr &operator+=(const mystr &s) {
-        char *old = str;
-        len += s.len;
-        str = new char[len + 1];
-        strcpy(str, old);
+        set(str, len + s.len);
         strcat(str, s.str);
-        delete[] old;
         return *this;
     }
 
     // =演算子をオーバーロード
     mystr &operator=(const char *s) {
-        delete[] str;
-        len = strlen(s);
-        str = new char[len + 1];
-        strcpy(str, s);
+        set(s, strlen(s));
+        return *this;
+    }
+
+    // 関数のオーバーロード
+    mystr &operator=(const mystr &s) {
+        set(s.str, s.len);
         return *this;
     }
 };
@@ -93,7 +96,7 @@ void test(const mystr &s) {
 
 int main() {
     mystr s = "abc";
-    // 関数のオーバーロードを行うことで、このように書くことが出来る
     s += s;
+    s = s;
     printf("s[%d]: %s\n", s.len, s.str);
 }
