@@ -5,21 +5,22 @@
 struct mystr {
     char *str;
 
+    // 初期値を与えないで引数を宣言
+    mystr() {
+        str = NULL;
+        *this = "";
+    }
+
+    // コンストラクタ
     mystr(const char *s) {
-        str = new char[strlen(s) + 1];
-        strcpy(str, s);
+        str = NULL;
+        *this = s;
     }
 
     // 代入の実現 コピーコンストラクタ
     mystr(const mystr &s) {
-        str = new char[strlen(s.str) + 1];
-        strcpy(str, s.str);
-    }
-
-    // 初期値を与えないで引数を宣言
-    mystr() {
-        str = new char[1];
-        str[0] = 0;
+        str = NULL;
+        *this = s.str;
     }
 
     ~mystr() {
