@@ -24,15 +24,6 @@ struct mystr {
         printf("%s\n", str);
     }
 
-    void operator+=(const char *s) {
-        char *old = str;
-        int len = strlen(str) + strlen(s);
-        str = new char[len + 1];
-        strcpy(str, old);
-        strcat(str, s);
-        delete[] old;
-    }
-
     mystr &operator+=(const char *s) {
         char *old = str;
         int len = strlen(str) + strlen(s);
@@ -71,10 +62,7 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr s1 = "abc";
-    mystr s2 = s1;
-    s1 += "def";
-    s2 += "ghi";
-    printf("s1: %s\n", s1.str);
-    printf("s2: %s\n", s2.str);
+    mystr s = "abc";
+    (s += "def") += "ghi";
+    printf("s = %s\n", s.str);
 }
