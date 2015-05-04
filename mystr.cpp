@@ -44,6 +44,17 @@ struct mystr {
         return *this;
     }
 
+    // 関数のオーバーロード
+    mystr &operator+=(const mystr &s) {
+        char *old = str;
+        len += s.len;
+        str = new char[len + 1];
+        strcpy(str, old);
+        strcat(str, s.str);
+        delete[] old;
+        return *this;
+    }
+
     // =演算子をオーバーロード
     mystr &operator=(const char *s) {
         delete[] str;
@@ -82,7 +93,7 @@ void test(const mystr &s) {
 
 int main() {
     mystr s = "abc";
-    // mystrにmystrを追加するにはstrを取り出します
-    s += s.str;
+    // 関数のオーバーロードを行うことで、このように書くことが出来る
+    s += s;
     printf("s[%d]: %s\n", s.len, s.str);
 }
