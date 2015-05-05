@@ -66,6 +66,14 @@ struct mystr {
         set(s.str, s.len);
         return *this;
     }
+
+    // +演算子をオーバーロード
+    // +演算子は新しいインスタンスを返しているため、自分自身のメンバ変数に影響を与えません。そのためconstを指定しています。
+    mystr operator+(const mystr &s) const {
+        mystr ret = *this;
+        ret += s;
+        return ret;
+    }
 };
 
 void testp() {
