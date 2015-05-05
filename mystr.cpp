@@ -112,8 +112,7 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr s1 = "abc";
-    mystr s2 = "abc";
-    mystr buf = s1 + s2;
-    buf.printn();
+    mystr a = "abc";
+    mystr b = "123" + a;
+    printf("%s\n", b.str);
 }
