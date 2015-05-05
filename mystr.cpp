@@ -90,13 +90,11 @@ void testr() {
     printf("a = %s, b = %s\n", a.str, b.str);
 }
 
+// mystrのコンストラクタではconst char *を受け付けます。引数としてconst mystr &を取る関数を呼び出すとき、コンストラクタが自動的にconst char *からmystrに変換してくれます。
 void test(const mystr &s) {
-    s.printn();  // エラー
+    s.printn();
 }
 
 int main() {
-    mystr s = "abc";
-    s += s;
-    s = s;
-    printf("s[%d]: %s\n", s.len, s.str);
+    test("abc");
 }
