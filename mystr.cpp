@@ -26,8 +26,6 @@ struct mystr {
     }
 
     ~mystr() {
-        // デストラクタにログを仕込む
-        printf("~mystr: %s\n", str);
         delete[] str;
     }
 
