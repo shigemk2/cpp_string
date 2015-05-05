@@ -93,6 +93,7 @@ void testr() {
 }
 
 // mystrのコンストラクタではconst char *を受け付けます。引数としてconst mystr &を取る関数を呼び出すとき、コンストラクタが自動的にconst char *からmystrに変換してくれます。
+// このように引数でconst参照を使うことで、関数呼び出し時の無駄なコピーを抑制できます。
 void test(const mystr &s) {
     s.printn();
 }
