@@ -67,14 +67,21 @@ struct mystr {
         return *this;
     }
 
-    // +演算子をオーバーロード
-    // +演算子は新しいインスタンスを返しているため、自分自身のメンバ変数に影響を与えません。そのためconstを指定しています。
-    mystr operator+(const mystr &s) const {
-        mystr ret = *this;
-        ret += s;
-        return ret;
-    }
+    // mystr operator+(const mystr &s) const {
+    //     mystr ret = *this;
+    //     ret += s;
+    //     return ret;
+    // }
 };
+
+// +演算子をオーバーロードしたやつをstructの外に出す
+// +演算子は新しいインスタンスを返しているため、自分自身のメンバ変数に影響を与えません。そのためconstを指定しています。
+mystr operator+(const mystr &s1, const mystr &s2) {
+    mystr ret = s1;
+    ret += s2;
+    return ret;
+}
+
 
 void testp() {
     printf("testp\n");
