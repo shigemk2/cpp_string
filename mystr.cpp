@@ -99,7 +99,8 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr s = "abc";
-    test(s);
-    test("last of main()\n");
+    mystr s1 = "abc";
+    mystr s2 = "abc";
+    mystr buf = s1 + s2;
+    buf.printn();
 }
