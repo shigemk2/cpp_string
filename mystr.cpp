@@ -74,6 +74,14 @@ struct mystr {
         ret += s;
         return ret;
     }
+
+    mystr substr(int start, int len) const {
+        mystr ret;
+        ret.set("", len);
+        strncpy(ret.str, &str[start], len);
+        ret.str[len] = 0;
+        return ret;
+    }
 };
 
 // +演算子をオーバーロードしたやつをstructの外に出す
@@ -113,7 +121,7 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr a = "abc";
-    mystr b = "123" + a;
-    printf("%s\n", b.str);
+    mystr s1 = "abcdefg";
+    mystr s2 = s1.substr(2, 3);
+    s2.printn();
 }
