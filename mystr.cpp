@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 struct mystr {
     char *str;
@@ -121,7 +122,12 @@ void test(const mystr &s) {
 }
 
 int main() {
-    mystr s1 = "abcdefg";
-    mystr s2 = s1.substr(2, 3);
-    s2.printn();
+    double t1 = (double)clock();
+    mystr s;
+    for (int i = 0; i < 100000; ++i)
+        s += "a";
+    double t2 = (double)clock();
+    printf("%.2fs\n",
+           (t2 - t1) / CLOCKS_PER_SEC
+        );
 }
