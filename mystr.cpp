@@ -98,5 +98,7 @@ void test(const mystr &s) {
 }
 
 int main() {
-    test("abc");
+    mystr s = "abc";
+    test(s);
+    test("last of main()\n");
 }
