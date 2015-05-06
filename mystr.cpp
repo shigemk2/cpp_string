@@ -1,9 +1,8 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 class mystr {
+private:
     char *str;
     // メンバ変数で長さを保持すればstrlen()の使用回数を減らすことができます。
     size_t len;
@@ -11,6 +10,8 @@ class mystr {
     size_t buflen;
 
 public:
+    // strを返すだけの関数
+    const char *c_str() const { return str; }
     // 長さを返すだけの関数
     size_t length() const { return len; }
 
@@ -40,6 +41,8 @@ public:
         printf("%s\n", str);
     }
 
+private:
+    // set()は内部だけで使用するため非公開にします
     // バッファサイズの最小値を16として、不足すれば収まるまで倍に拡張します。
     void set(const char *s, size_t newlen) {
         char *old = str;
@@ -54,6 +57,7 @@ public:
         if (old != str) delete[] old;
     }
 
+public:
     // +=演算子をオーバーロード
     mystr &operator+=(const char *s) {
         int oldlen = len;
@@ -107,36 +111,9 @@ mystr operator+(const mystr &s1, const mystr &s2) {
     return ret;
 }
 
-// void testp() {
-//     printf("testp\n");
-//     mystr a = "abc";
-//     mystr *b = &a;
-//     printf("a = %s, b = %s\n", a.str, b->str);
-//     a += "def";
-//     printf("a = %s, b = %s\n", a.str, b->str);
-//     *b += "ghi";
-//     printf("a = %s, b = %s\n", a.str, b->str);
-// }
-
-// void testr() {
-//     printf("testr\n");
-//     mystr a = "abc";
-//     mystr &b = a;
-//     printf("a = %s, b = %s\n", a.str, b.str);
-//     a += "def";
-//     printf("a = %s, b = %s\n", a.str, b.str);
-//     b += "ghi";
-//     printf("a = %s, b = %s\n", a.str, b.str);
-// }
-
-// mystrのコンストラクタではconst char *を受け付けます。引数としてconst mystr &を取る関数を呼び出すとき、コンストラクタが自動的にconst char *からmystrに変換してくれます。
-// このように引数でconst参照を使うことで、関数呼び出し時の無駄なコピーを抑制できます。
-void test(const mystr &s) {
-    s.printn();
-}
-
 int main() {
-    mystr s = "abc";
-    printf("[%d]", s.length());  // OK
-    s.printn();             // OK
+    mystr s = "abcd";
+    printf("[%d]%s\n", s.length(), s.c_str());
+    mystr s1 = "abcd" + s;
+    printf("[%d]%s\n", s1.length(), s1.c_str());
 }
