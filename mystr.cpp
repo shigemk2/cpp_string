@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-struct mystr {
+class mystr {
     char *str;
     // メンバ変数で長さを保持すればstrlen()の使用回数を減らすことができます。
     size_t len;
@@ -97,47 +97,39 @@ struct mystr {
 
 // +演算子をオーバーロードしたやつをstructの外に出す
 // +演算子は新しいインスタンスを返しているため、自分自身のメンバ変数に影響を与えません。そのためconstを指定しています。
-mystr operator+(const mystr &s1, const mystr &s2) {
-    mystr ret = s1;
-    ret += s2;
-    return ret;
-}
+// mystr operator+(const mystr &s1, const mystr &s2) {
+//     mystr ret = s1;
+//     ret += s2;
+//     return ret;
+// }
 
-void testp() {
-    printf("testp\n");
-    mystr a = "abc";
-    mystr *b = &a;
-    printf("a = %s, b = %s\n", a.str, b->str);
-    a += "def";
-    printf("a = %s, b = %s\n", a.str, b->str);
-    *b += "ghi";
-    printf("a = %s, b = %s\n", a.str, b->str);
-}
+// void testp() {
+//     printf("testp\n");
+//     mystr a = "abc";
+//     mystr *b = &a;
+//     printf("a = %s, b = %s\n", a.str, b->str);
+//     a += "def";
+//     printf("a = %s, b = %s\n", a.str, b->str);
+//     *b += "ghi";
+//     printf("a = %s, b = %s\n", a.str, b->str);
+// }
 
-void testr() {
-    printf("testr\n");
-    mystr a = "abc";
-    mystr &b = a;
-    printf("a = %s, b = %s\n", a.str, b.str);
-    a += "def";
-    printf("a = %s, b = %s\n", a.str, b.str);
-    b += "ghi";
-    printf("a = %s, b = %s\n", a.str, b.str);
-}
+// void testr() {
+//     printf("testr\n");
+//     mystr a = "abc";
+//     mystr &b = a;
+//     printf("a = %s, b = %s\n", a.str, b.str);
+//     a += "def";
+//     printf("a = %s, b = %s\n", a.str, b.str);
+//     b += "ghi";
+//     printf("a = %s, b = %s\n", a.str, b.str);
+// }
 
 // mystrのコンストラクタではconst char *を受け付けます。引数としてconst mystr &を取る関数を呼び出すとき、コンストラクタが自動的にconst char *からmystrに変換してくれます。
 // このように引数でconst参照を使うことで、関数呼び出し時の無駄なコピーを抑制できます。
-void test(const mystr &s) {
-    s.printn();
-}
+// void test(const mystr &s) {
+//     s.printn();
+// }
 
 int main() {
-    double t1 = (double)clock();
-    mystr s;
-    for (int i = 0; i < 100000; ++i)
-        s += "a";
-    double t2 = (double)clock();
-    printf("%.2fs\n",
-           (t2 - t1) / CLOCKS_PER_SEC
-        );
 }
