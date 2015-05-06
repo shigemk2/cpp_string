@@ -52,15 +52,17 @@ struct mystr {
 
     // +=演算子をオーバーロード
     mystr &operator+=(const char *s) {
+        int oldlen = len;
         set(str, len + strlen(s));
-        strcat(str, s);
+        strcpy(&str[oldlen], s);
         return *this;
     }
 
     // 関数のオーバーロード
     mystr &operator+=(const mystr &s) {
+        int oldlen = len;
         set(str, len + s.len);
-        strcat(str, s.str);
+        strcpy(&str[oldlen], s.str);
         return *this;
     }
 
