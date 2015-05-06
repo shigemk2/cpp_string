@@ -10,6 +10,7 @@ class mystr {
     // バッファサイズを保持するメンバ変数を追加
     size_t buflen;
 
+public:
     // 初期値を与えないで引数を宣言
     mystr() {
         str = NULL;
@@ -97,11 +98,11 @@ class mystr {
 
 // +演算子をオーバーロードしたやつをstructの外に出す
 // +演算子は新しいインスタンスを返しているため、自分自身のメンバ変数に影響を与えません。そのためconstを指定しています。
-// mystr operator+(const mystr &s1, const mystr &s2) {
-//     mystr ret = s1;
-//     ret += s2;
-//     return ret;
-// }
+mystr operator+(const mystr &s1, const mystr &s2) {
+    mystr ret = s1;
+    ret += s2;
+    return ret;
+}
 
 // void testp() {
 //     printf("testp\n");
@@ -127,9 +128,9 @@ class mystr {
 
 // mystrのコンストラクタではconst char *を受け付けます。引数としてconst mystr &を取る関数を呼び出すとき、コンストラクタが自動的にconst char *からmystrに変換してくれます。
 // このように引数でconst参照を使うことで、関数呼び出し時の無駄なコピーを抑制できます。
-// void test(const mystr &s) {
-//     s.printn();
-// }
+void test(const mystr &s) {
+    s.printn();
+}
 
 int main() {
     mystr s;
