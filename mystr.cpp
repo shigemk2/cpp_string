@@ -56,6 +56,8 @@ private:
             while (buflen < len)
                 buflen += buflen;
             str = new char[buflen + 1];
+        } else if (*refcount > 1) {
+            str = new char[buflen + 1];
         }
         if (str != s) strcpy(str, s);
         if (old != str) {
@@ -131,13 +133,9 @@ mystr operator+(const mystr &s1, const mystr &s2) {
 }
 
 int main() {
-    mystr s1, s2;
-    for (int i = 0; i < 100000; ++i)
-        s1 += "a";
-    double t1 = (double)clock();
-    for (int i = 0; i < 100000; ++i)
-        s2 = s1;
-    double t2 = (double)clock();
-    printf("%.2fs\n",
-        (t2 - t1) / CLOCKS_PER_SEC);
+    mystr s1 = "abc";
+    mystr s2 = s1;
+    s1 += "def";
+    printf("s1[%d]%s\n", s1.length(), s1.c_str());
+    printf("s2[%d]%s\n", s2.length(), s2.c_str());
 }
