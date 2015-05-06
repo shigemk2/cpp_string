@@ -4,12 +4,15 @@
 class mystr {
 private:
     char *str;
-    // メンバ変数で長さを保持すればstrlen()の使用回数を減らすことができます。
-    size_t len;
+    // // メンバ変数で長さを保持すればstrlen()の使用回数を減らすことができます。
+    // size_t len;
     // バッファサイズを保持するメンバ変数を追加
     size_t buflen;
 
 public:
+    // メンバ変数で長さを保持すればstrlen()の使用回数を減らすことができます。
+    size_t len;
+
     // strを返すだけの関数
     const char *c_str() const { return str; }
     // 長さを返すだけの関数
@@ -111,9 +114,12 @@ mystr operator+(const mystr &s1, const mystr &s2) {
     return ret;
 }
 
+// 結果は [2]abc
+// 外部でlenとかを書き換えられるようにしてしまうとわけがわからなくなる
+// ので、データを管理するメンバ変数はprivateにして、操作はpublicなメンバ関数だけから行うようにする
+// 内部構造の変化が外部に影響を与えないようにする設計方針をカプセル化
 int main() {
-    mystr s = "abcd";
+    mystr s = "abc";
+    s.len = 2;
     printf("[%d]%s\n", s.length(), s.c_str());
-    mystr s1 = "abcd" + s;
-    printf("[%d]%s\n", s1.length(), s1.c_str());
 }
