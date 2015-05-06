@@ -132,4 +132,5 @@ class mystr {
 // }
 
 int main() {
+    mystr s;
 }
