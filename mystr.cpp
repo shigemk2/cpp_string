@@ -7,6 +7,8 @@ struct mystr {
     char *str;
     // メンバ変数で長さを保持すればstrlen()の使用回数を減らすことができます。
     size_t len;
+    // バッファサイズを保持するメンバ変数を追加
+    size_t buflen;
 
     // 初期値を与えないで引数を宣言
     mystr() {
@@ -34,12 +36,18 @@ struct mystr {
         printf("%s\n", str);
     }
 
+    // バッファサイズの最小値を16として、不足すれば収まるまで倍に拡張します。
     void set(const char *s, size_t newlen) {
         char *old = str;
         len = newlen;
-        str = new char[len + 1];
-        strcpy(str, s);
-        delete[] old;
+        if(!old || buflen < len) {
+            if (!old) buflen = 16;
+            while (buflen < len)
+                buflen += buflen;
+            str = new char[buflen + 1];
+        }
+        if (str != s) strcpy(str, s);
+        if (old != str) delete[] old;
     }
 
     // +=演算子をオーバーロード
