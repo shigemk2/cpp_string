@@ -47,17 +47,21 @@ public:
 private:
     // set()は内部だけで使用するため非公開にします
     // バッファサイズの最小値を16として、不足すれば収まるまで倍に拡張します。
+    // バッファが共有された数を記録しておいて、ゼロになれば解放する
     void set(const char *s, size_t newlen) {
         char *old = str;
         len = newlen;
-        if(!old || buflen < len) {
+        if (!old || buflen < len) {
             if (!old) buflen = 16;
             while (buflen < len)
                 buflen += buflen;
             str = new char[buflen + 1];
         }
         if (str != s) strcpy(str, s);
-        if (old != str) delete[] old;
+        if (old != str) {
+            unset(old);
+            refcount = new int(1);
+        }
     }
 
     // バッファが共有された数を記録しておいて、ゼロになれば解放する方法です。このような方法を参照カウントと呼びます。
@@ -93,7 +97,11 @@ public:
 
     // 関数のオーバーロード
     mystr &operator=(const mystr &s) {
-        set(s.str, s.len);
+        unset(str);
+        str = s.str;
+        len = s.len;
+        buflen = s.buflen;
+        ++*(refcount = s.refcount);
         return *this;
     }
 
