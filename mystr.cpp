@@ -11,6 +11,9 @@ class mystr {
     size_t buflen;
 
 public:
+    // 長さを返すだけの関数
+    size_t length() const { return len; }
+
     // 初期値を与えないで引数を宣言
     mystr() {
         str = NULL;
@@ -134,6 +137,6 @@ void test(const mystr &s) {
 
 int main() {
     mystr s = "abc";
-    // printf("[%d]", s.len);  // エラー
+    printf("[%d]", s.length());  // OK
     s.printn();             // OK
 }
