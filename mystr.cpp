@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 class mystr {
 private:
@@ -8,6 +9,8 @@ private:
     size_t len;
     // バッファサイズを保持するメンバ変数を追加
     size_t buflen;
+    // バッファ操作で参照カウントを増減
+    int *refcount;
 
 public:
     // strを返すだけの関数
@@ -34,7 +37,7 @@ public:
     }
 
     ~mystr() {
-        delete[] str;
+        unset(str);
     }
 
     void printn() const {
@@ -55,6 +58,14 @@ private:
         }
         if (str != s) strcpy(str, s);
         if (old != str) delete[] old;
+    }
+
+    // バッファが共有された数を記録しておいて、ゼロになれば解放する方法です。このような方法を参照カウントと呼びます。
+    void unset(char *str) {
+        if (str && --*refcount == 0) {
+            delete refcount;
+            delete[] str;
+        }
     }
 
 public:
@@ -111,11 +122,14 @@ mystr operator+(const mystr &s1, const mystr &s2) {
     return ret;
 }
 
-// 外部でlenとかを書き換えられるようにしてしまうとわけがわからなくなる
-// ので、データを管理するメンバ変数はprivateにして、操作はpublicなメンバ関数だけから行うようにする
-// 内部構造の変化が外部に影響を与えないようにする設計方針をカプセル化
 int main() {
-    mystr s = "abc";
-    // s.len = 2;
-    printf("[%d]%s\n", s.length(), s.c_str());
+    mystr s1, s2;
+    for (int i = 0; i < 100000; ++i)
+        s1 += "a";
+    double t1 = (double)clock();
+    for (int i = 0; i < 100000; ++i)
+        s2 = s1;
+    double t2 = (double)clock();
+    printf("%.2fs\n",
+        (t2 - t1) / CLOCKS_PER_SEC);
 }
