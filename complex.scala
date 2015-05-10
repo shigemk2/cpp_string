@@ -2,8 +2,11 @@ case class Complex(real: Int, imag: Int) {
   def this(re: Int) = this(re, 0)
 
   implicit def +(that: Complex) = Complex(real + that.real, imag + that.imag)
+  implicit def +(re: Int) = Complex(real + re, imag)
   implicit def *(that: Complex) = Complex(real * that.real, imag * that.imag)
+  implicit def *(re: Int) = Complex(real * re, imag)
   implicit def -(that: Complex) = Complex(real - that.real, imag - that.imag)
+  implicit def -(re: Int) = Complex(real - re, imag)
 
   override def toString() = {
     (real, imag) match {
@@ -34,3 +37,7 @@ println(c)
 println(d)
 println(e)
 println(f)
+
+val y = new Complex(2)
+println(y - 2)
+
