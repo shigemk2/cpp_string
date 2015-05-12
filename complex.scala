@@ -14,7 +14,7 @@ case class Complex(real: Int, imag: Int) {
     val b = that.real * imag + that.imag * real
     Complex(a, b)
   }
-  def *(re: Int) = Complex(real * re, imag)
+  def *(re: Int) = Complex(real * re, imag * re)
   def -(that: Complex) = Complex(real - that.real, imag - that.imag)
   def -(re: Int) = Complex(real - re, imag)
 
@@ -42,6 +42,7 @@ val c = a + b
 val d = a * b
 val e = a - 1
 val f = a - 2 * i;
+val g = i * 2
 
 println(a)
 println(b)
@@ -49,3 +50,4 @@ println(c)
 println(d)
 println(e)
 println(f)
+println(g)
