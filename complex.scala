@@ -1,5 +1,5 @@
 object ComplexImplicits {
-  implicit def fromInt(re: Int) = new Complex(re, 1)
+  implicit def fromInt(re: Int) = new Complex(re, 0)
 }
 
 import ComplexImplicits._
@@ -9,7 +9,11 @@ case class Complex(real: Int, imag: Int) {
 
   def +(that: Complex) = Complex(real + that.real, imag + that.imag)
   def +(re: Int) = Complex(real + re, imag)
-  def *(that: Complex) = Complex(real * that.real, imag * that.imag)
+  def *(that: Complex) = {
+    val a = that.real * real - that.imag * imag
+    val b = that.real * imag + that.imag * real
+    Complex(a, b)
+  }
   def *(re: Int) = Complex(real * re, imag)
   def -(that: Complex) = Complex(real - that.real, imag - that.imag)
   def -(re: Int) = Complex(real - re, imag)
