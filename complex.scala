@@ -43,6 +43,7 @@ val d = a * b
 val e = a - 1
 val f = a - 2 * i;
 val g = i * 2
+val h = 3 + i * 4
 
 println(a)
 println(b)
@@ -51,3 +52,4 @@ println(d)
 println(e)
 println(f)
 println(g)
+println(h)
